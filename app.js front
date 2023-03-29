@@ -1,0 +1,57 @@
+import requests
+import openai 
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+def generate_chat_response(prompt):
+    model_engine = "text-davinci-002"
+    response = openai.Completion.create(
+        engine=model_engine,
+        prompt=prompt,
+        max_tokens=2048,
+        n=1,
+        stop=None,
+        temperature=0.7,
+    )
+    message = response.choices[0].text.strip()
+    return message
+
+
+def call_chat_gpt_question(pregunta):
+    response = generate_chat_response(pregunta)
+    return response
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/get_oportunity_info', methods=['POST'])
+def get_oportunity_info():
+    
+    opp_id = request.form['opp_id']
+    print('entered into method:'+opp_id)
+    
+    # write the postman api link
+    url = f'http://localhost:5000/get_chatbot_response/{opp_id}'
+    headers = {'Accept': 'application/json'}
+    
+    # send get request to url using headers and store response in variable `response`
+    response = requests.get(url, headers=headers)
+
+    # get json data from response and store it in variable `data`
+    data = response.json()
+
+    description = data["description"]
+    titulo = data["Titulo"]
+    skills = data["Skills"] 
+    spelling = data["spelling"] 
+
+    return render_template('response.html', opp_id=opp_id, torre_description=description, torre_titule=titulo, 
+        response_hard_skills=skills, response_spelling=spelling)
+
+
+if __name__ == '__main__':
+    app.run(port=5010)
