@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OpenAI Chatbot Response</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+      /* Add some basic styles to make the page look nicer */
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        background-color: #f7f7f7;
+      }
+
+      h1 {
+        font-size: 2em;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 40px;
+      }
+
+      h2, h3 {
+        font-size: 1.5em;
+        margin-top: 30px;
+        margin-bottom: 20px;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid #CCC;
+        margin: 30px 0;
+      }
+
+      p {
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      ul {
+        list-style-type: disc;
+        margin-left: 30px;
+        margin-bottom: 20px;
+      }
+
+      button {
+        margin-top: 40px;
+        font-size: 1.2em;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0062cc;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>OpenAI Chatbot Response</h1>
+    </header>
+
+    <section>
+      <h2>Opportunity ID:</h2>
+      <p>{{ opp_id }}</p>
+    </section>
+
+    <section>
+      <h2>Description:</h2>
+      <p>{{ torre_description }}</p>
+    </section>
+
+    <section>
+      <h2>Title:</h2>
+      <p>{{ torre_titule }}</p>
+    </section>
+
+    <hr />
+
+    <section>
+      <h3>Chatbot Responses:</h3>
+      <ul>
+        <li>Top hard skills: {{ response_hard_skills }}</li>
+        <li>Spelling correction and rewriting: {{ response_spelling }}</li>
+      </ul>
+    </section>
+    
+    <button onclick="window.history.back()">Back to Previous Page</button>
+  </body>
+</html>
+
