@@ -47,10 +47,11 @@ def get_oportunity_info():
     description = data["description"]
     titulo = data["Titulo"]
     skills = data["Skills"] 
-    spelling = data["spelling"] 
+    spelling = data["spelling"]
+    tagline = data["tagline"] 
 
     return render_template('response.html', opp_id=opp_id, torre_description=description, torre_titule=titulo, 
-        response_hard_skills=skills, response_spelling=spelling)
+        response_hard_skills=skills, response_spelling=spelling, response_tagline=tagline)
 
 
 if __name__ == '__main__':
