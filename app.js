@@ -47,20 +47,34 @@ def get_chatbot_response(codigo):
     data = response.json()
 
     # Assign some variables inside the JSON to new variables
-    torre_description = data["details"][2]["content"]
+            #First for torre_description
+    details_sections = data["details"]
+    responsibilities_content = None
+    for section in details_sections:
+        if section['code'] == 'responsibilities':
+                responsibilities_content = section['content']
+    if responsibilities_content:
+        torre_description = responsibilities_content
+
     torre_titule = data["objective"]
 
-    pregunta = f"Give me the 5 most relevant hard skills according to '{torre_description}'"
+    organization = data["organizations"][0]["name"]
+
+    pregunta = f"Please list the top 5 most relevant hard skills according to '{torre_description}'"
     response_hard_skills = call_chat_gpt_question(pregunta)
 
-    pregunta2 = f"Correct spelling and rewrite it in a better way: '{torre_description}'"
+    pregunta2 = f"Act as a copywriter and improve this job description: '{torre_description}', also put emojis at the beginning of every sentence"
     response_spelling = call_chat_gpt_question(pregunta2)
+
+    pregunta3 = f"Please search for information about this organization: '{organization}', and write a short tagline about it, no more than 20 words, finally add an emoji at the end of the sentence"
+    response_tagline = call_chat_gpt_question(pregunta3)
 
     data = {
         'Titulo' : torre_titule,
         'Skills': response_hard_skills,
         'description': torre_description,
-        'spelling': response_spelling 
+        'spelling': response_spelling,  
+        'tagline': response_tagline
     }
 
     return jsonify(data) 
